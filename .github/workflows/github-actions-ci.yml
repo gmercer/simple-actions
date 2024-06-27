@@ -8,13 +8,13 @@ jobs:
     if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout
+        uses: actions/checkout@v4
       - name: Start PostgreSQL
         run: |
           sudo systemctl start postgresql.service
           pg_isready
           sudo -u postgres createuser -s -d -r -w runner
-      - name: Checkout
-        uses: actions/checkout@v4
       - name: Setup JDK
         uses: actions/setup-java@v4
         with:
