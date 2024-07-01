@@ -17,7 +17,7 @@ jobs:
       - name: Create junit user
         run: |
           sudo -u postgres psql --command="CREATE USER junit_user PASSWORD 'junit_password'"
-          sudo -u postgres psql --command="du"
+          sudo -u postgres psql --command="\du"
       - name: Create junit database
         run: |
           sudo -u postgres createdb --owner=junit_user junit_db
