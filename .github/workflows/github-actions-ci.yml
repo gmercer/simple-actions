@@ -14,7 +14,14 @@ jobs:
         run: |
           sudo systemctl start postgresql.service
           pg_isready
-          sudo -u postgres createuser -s -d -r -w runner
+      - name: Create junit user
+        run: |
+          sudo -u postgres psql --command="CREATE USER junit PASSWORD 'somestrong'" --command='du'
+      - name: Create junit database
+        run: |
+          sudo -u postgres createdb --owner=junit junit
+          PGPASSWORD=junit psql --username=junit --host=localhost --list junit
+# was           sudo -u postgres createuser -s -d -r -w runner
       - name: Setup JDK
         uses: actions/setup-java@v4
         with:
