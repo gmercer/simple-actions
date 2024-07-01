@@ -23,7 +23,7 @@ public class Simple {
     private static final Logger logger = LogManager.getLogger(Simple.class);
 
     public static DataSource getDataSource() {
-        String connectURI = "jdbc:postgresql://localhost:5432/postgres";
+        String connectURI = "jdbc:postgresql://localhost:5432/junit_database";
         String driver = "org.postgresql.Driver";
 
         BasicDataSource bds = new BasicDataSource();
