@@ -29,8 +29,8 @@ public class Simple {
         BasicDataSource bds = new BasicDataSource();
         bds.setDriverClassName(driver);
         bds.setUrl(connectURI);
-        bds.setUsername("runner"); // see ci actions file
-
+        bds.setUsername("junit_user"); // see ci actions file
+        bds.setPassword("junit_password");
         return bds;
     }
 
