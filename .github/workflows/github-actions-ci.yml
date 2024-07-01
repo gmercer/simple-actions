@@ -17,10 +17,11 @@ jobs:
       - name: Create junit user
         run: |
           sudo -u postgres psql --command="CREATE USER junit_user PASSWORD 'junit_password'" --command="du"
+          sudo -u postgres psql --command="du"
       - name: Create junit database
         run: |
           sudo -u postgres createdb --owner=junit_user junit_db
-          PGPASSWORD=junit_password psql --username=junit_user --host=localhost --list junit_db
+          PGPASSWORD="junit_password" psql --username=junit_user --host=localhost --list junit_db
 # was           sudo -u postgres createuser -s -d -r -w runner
       - name: Setup JDK
         uses: actions/setup-java@v4
