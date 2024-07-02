@@ -70,7 +70,7 @@ public class Simple {
     }
 
     public String[] getUsers() {
-        String usersNameQuery = "SELECT name FROM user";
+        String usersNameQuery = "SELECT name FROM person";
         logger.debug("Setting up data source.");
 
         // This just demonstrates that we can drop down to only java.sql namespace
@@ -97,7 +97,7 @@ public class Simple {
             int numcols = rset.getMetaData().getColumnCount();
             while (rset.next()) {
                 for (int i = 1; i <= numcols; i++) {
-                    System.out.print("\t" + rset.getString(i));
+                    logger.debug("\t" + rset.getString(i));
                     results.add(rset.getString(i));
                 }
                 logger.debug("");
