@@ -4,8 +4,8 @@ on:
     branches: [ main ]
 
 jobs:
-  test:
-    if: github.ref == 'refs/heads/main'
+  build:
+    name: Build
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -22,23 +22,14 @@ jobs:
         run: |
           sudo -u postgres createdb --owner=junit_user junit_database
           PGPASSWORD="junit_password" psql --username=junit_user --host=localhost --list junit_database
-# was           sudo -u postgres createuser -s -d -r -w runner
       - name: Setup JDK
         uses: actions/setup-java@v4
         with:
           java-version: 8
           distribution: 'temurin'
           cache: 'maven'
-#      - name: Cache local Maven repository
-#        uses: actions/cache@v4
-#        with:
-#          path: ~/.m2/repository
-#          key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
-#          restore-keys: |
-#            ${{ runner.os }}-maven-
       - name: Build with Maven
         run: mvn -B package
       - name: Check junit database
         run: |
           sudo -u postgres psql -d junit_database --command="\dt"
-# was           sudo -u postgres createuser -s -d -r -w runner
