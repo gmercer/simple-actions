@@ -1,4 +1,5 @@
 name: Java Postgres CI
+
 on:
   push:
     branches: [ main ]
@@ -30,6 +31,3 @@ jobs:
           cache: 'maven'
       - name: Build with Maven
         run: mvn -B package
-      - name: Check junit database
-        run: |
-          sudo -u postgres psql -d junit_database --command="\dt"
