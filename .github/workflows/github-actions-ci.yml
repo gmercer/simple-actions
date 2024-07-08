@@ -43,7 +43,7 @@ jobs:
         uses: softprops/action-gh-release@v2
         with:
           files: '**/*.jar'
-        if: startsWith(github.head_ref, 'releases/*') && github.event.pull_request.merged == true
+        if: startsWith(github.head_ref, 'releases/') && github.event.pull_request.merged == true
   ignore:
     if: github.event.pull_request.merged != true
     name: Ignoring closed pull request without merge
