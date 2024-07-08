@@ -34,3 +34,5 @@ We should be able to incorporate CD in the same file where we match the deploy o
 ## Things to remember
 * For mvn clean Deploy use `-DskipTests`
 
+## Testing only updates
+* test that build occurs on merge of pull request
