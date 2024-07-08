@@ -15,6 +15,8 @@ jobs:
     name: Build
     runs-on: ubuntu-latest
     steps:
+      - name: Debug
+        uses: hmarr/debug-action@v3
       - name: Checkout
         uses: actions/checkout@v4
         with:
@@ -29,7 +31,6 @@ jobs:
       - name: Create junit database
         run: |
           sudo -u postgres createdb --owner=junit_user junit_database
-          PGPASSWORD="junit_password" psql --username=junit_user --host=localhost --list junit_database
       - name: Setup JDK
         uses: actions/setup-java@v4
         with:
