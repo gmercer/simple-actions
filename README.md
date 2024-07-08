@@ -36,3 +36,4 @@ We should be able to incorporate CD in the same file where we match the deploy o
 
 ## Testing only updates
 * test that build occurs on merge of pull request
+* tagging for a release after build
