@@ -40,7 +40,7 @@ jobs:
       - name: Build with Maven
         run: mvn -B package
       - name: release_version
-        run: echo tag_name=$( echo "releases/first" | sed 's#releases/##' ) >> ${GITHUB_OUTPUT}
+        run: echo tag_name=$( echo ${GITHUB_HEAD_REF} | sed 's#releases/##' ) >> ${GITHUB_OUTPUT}
       - name: Release
         uses: softprops/action-gh-release@v2
         with:
