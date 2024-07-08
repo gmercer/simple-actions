@@ -1,9 +1,11 @@
 name: Java Postgres CI
 
 on:
-  push:
-    branches: [ main ]
-
+  pull_request_target:
+    branches:
+      - main
+    types:
+      -  closed
 jobs:
   build:
     name: Build
@@ -18,7 +20,6 @@ jobs:
       - name: Create junit user
         run: |
           sudo -u postgres psql --command="CREATE USER junit_user PASSWORD 'junit_password'"
-          sudo -u postgres psql --command="\du"
       - name: Create junit database
         run: |
           sudo -u postgres createdb --owner=junit_user junit_database
@@ -31,3 +32,8 @@ jobs:
           cache: 'maven'
       - name: Build with Maven
         run: mvn -B package
+      - name: Release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: '**/*.jar'
+        if: startsWith(github.ref, 'refs/tags/')
