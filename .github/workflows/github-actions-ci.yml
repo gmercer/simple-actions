@@ -42,12 +42,16 @@ jobs:
       - name: release_version
         run: |
           echo tag_name=$( echo ${GITHUB_HEAD_REF} | sed 's#releases/##' ) >> ${GITHUB_OUTPUT}
+          echo tag_name=$( echo ${GITHUB_HEAD_REF} | sed 's#releases/##' ) >> ${GITHUB_ENV}
+          echo TAG_NAME=$( echo ${GITHUB_HEAD_REF} | sed 's#releases/##' ) >> ${GITHUB_ENV}
           echo tag_name=$( echo ${GITHUB_HEAD_REF} | sed 's#releases/##' )
+      - name: Debug
+        uses: hmarr/debug-action@v3
       - name: Release
         uses: softprops/action-gh-release@v2
         with:
-          tag_name: ${{steps.release_version.outputs.tag_name}}
           files: '**/*.jar'
+          tag_name: ${{steps.release_version.outputs.tag_name}}
         if: startsWith(github.head_ref, 'releases/') && github.event.pull_request.merged == true
 
   ignore:
