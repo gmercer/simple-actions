@@ -5,7 +5,10 @@ on:
     branches:
       - main
     types:
-      -  closed
+      - closed
+env:
+  ACTIONS_RUNNER_DEBUG: true
+
 jobs:
   build:
     if: github.event.pull_request.merged == true
