@@ -8,11 +8,14 @@ on:
       -  closed
 jobs:
   build:
+    if: github.event.pull_request.merged == 'true'
     name: Build
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          fetch-tags: true
       - name: Start PostgreSQL
         run: |
           sudo systemctl start postgresql.service
@@ -36,4 +39,10 @@ jobs:
         uses: softprops/action-gh-release@v2
         with:
           files: '**/*.jar'
-        if: startsWith(github.ref, 'refs/tags/')
+        if: startsWith(github.ref, 'refs/tags/') && github.event.pull_request.merged == true
+  ignore:
+    if: github.event.pull_request.merged != 'true'
+    name: Ignoring closed pull request without merge
+    runs-on: ubuntu-latest
+    steps:
+      - run : echo "Ignoring closed PR because it was not merged"
