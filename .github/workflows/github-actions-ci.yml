@@ -51,7 +51,7 @@ jobs:
         uses: softprops/action-gh-release@v2
         with:
           files: '**/*.jar'
-          tag_name: ${{steps.release_version.outputs.tag_name}}
+          tag_name: '${{steps.release_version.outputs.tag_name}}'
         if: startsWith(github.head_ref, 'releases/') && github.event.pull_request.merged == true
 
   ignore:
