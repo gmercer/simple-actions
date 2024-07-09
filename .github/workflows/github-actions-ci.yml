@@ -39,8 +39,7 @@ jobs:
           cache: 'maven'
       - name: release_version
         run: |
-          cd ${{ github.workspace }}
-          last_tag=$(git describe --abbrev=0 --tags)
+          last_tag=$(git -C ${{ github.workspace }} describe --abbrev=0 --tags)
           next_tag=echo ${last_tag} | awk -F. '{ print $1"."$2"."($3 + 1) }'
           echo tag_name=$( echo ${next_tag} ) >> ${GITHUB_ENV}    
           echo tag_num=$( echo ${next_tag} | sed 's/[A-z]//g' ) >> ${GITHUB_ENV}
