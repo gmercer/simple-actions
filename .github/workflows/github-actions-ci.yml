@@ -42,16 +42,15 @@ jobs:
           next_tag=$( echo ${last_tag} | awk -F. '{ print $1"."$2"."($3 + 1) }' )
           echo tag_name=$( echo ${next_tag} ) >> ${GITHUB_ENV}    
           echo tag_num=$( echo ${next_tag} | sed 's/[A-z]//g' ) >> ${GITHUB_ENV}
+        if: startsWith(github.head_ref, 'releases/')
       - name: Build with Maven
         run: mvn -Drevision=${{ env.tag_num }} -B clean package
-      - name: Debug
-        uses: hmarr/debug-action@v3
       - name: Release
         uses: softprops/action-gh-release@v2
         with:
           files: '**/*.jar'
           tag_name: '${{ env.tag_name }}'
-        if: startsWith(github.head_ref, 'releases/') && github.event.pull_request.merged == true
+        if: startsWith(github.head_ref, 'releases/')
 
   ignore:
     if: github.event.pull_request.merged != true
