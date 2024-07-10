@@ -42,7 +42,6 @@ jobs:
           next_tag=$( echo ${last_tag} | awk -F. '{ print $1"."$2"."($3 + 1) }' )
           echo tag_name=$( echo ${next_tag} ) >> ${GITHUB_ENV}    
           echo tag_num=$( echo ${next_tag} | sed 's/[A-z]//g' ) >> ${GITHUB_ENV}
-        if: startsWith(github.head_ref, 'releases/')
       - name: Build with Maven
         run: mvn -Drevision=${{ env.tag_num }} -B clean package
       - name: Release
